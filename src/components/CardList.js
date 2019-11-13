@@ -59,38 +59,38 @@ class CardList extends React.Component {
     renderCards = () => {
         let arrOfCards = this.props.robots.map((robot,index) => {
             return (
-                <ReactCardFlip 
-                    isFlipped={this.getIsFlipped(index)}
-                    flipSpeedBackToFront={0.8}
-                    flipSpeedFrontToBack={0.8} 
-                    flipDirection="horizontal" 
-                    key={index}
-                >
-                    <CardFront onClick={() => this.handleClick(index, robot.id)} />
-                    <CardBack 
-                        robotName={robot.name} 
-                        id={index} 
-                        onClick={() => this.handleClick(index, robot.id)}
-                    />
-                </ReactCardFlip>
+                <div class="scene scene--card grow ">
+                    <div class={this.getIsFlipped(index) ? "card shadow-5 is-flipped" : "card shadow-5"}>
+                        <div class="card__face card__face--front">
+                            <CardFront onClick={() => this.handleClick(index, robot.id)} />
+                        </div>
+                        <div class="card__face card__face--back">
+                            <CardBack 
+                                robotName={robot.name} 
+                                id={index} 
+                                onClick={() => this.handleClick(index, robot.id)}
+                            />
+                        </div>
+                    </div>
+                </div>
             );
         });
         let arrOfMatchedCards = this.props.robots.map((robot,index) => {
             return (
-                <ReactCardFlip 
-                    isFlipped={this.getIsFlipped(index+10)}
-                    flipSpeedBackToFront={0.8}
-                    flipSpeedFrontToBack={0.8}  
-                    flipDirection="horizontal" 
-                    key={index+10}
-                >
-                    <CardFront onClick={() => this.handleClick(index+10, robot.id)} />
-                    <CardBack 
-                        robotName={robot.name} 
-                        id={index} 
-                        onClick={() => this.handleClick(index+10, robot.id)}
-                    />
-                </ReactCardFlip>
+                <div class="scene scene--card grow">
+                    <div class={this.getIsFlipped(index+10) ? "card shadow-5 is-flipped" : "card shadow-5"}>
+                        <div class="card__face card__face--front">
+                            <CardFront onClick={() => this.handleClick(index+10, robot.id)} />
+                        </div>
+                        <div class="card__face card__face--back">
+                            <CardBack 
+                                robotName={robot.name} 
+                                id={index} 
+                                onClick={() => this.handleClick(index+10, robot.id)}
+                            />
+                        </div>
+                    </div>
+                </div>
             );
         }); 
         return <div>{[...arrOfCards, ...arrOfMatchedCards]}</div>;

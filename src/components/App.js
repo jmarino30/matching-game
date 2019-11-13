@@ -7,6 +7,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <h1 className="tc">ROBOFRIENDS</h1>
                 <CardList />
             </div>
         );

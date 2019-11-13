@@ -89,3 +89,10 @@ export const matchReducer = (state={matches: 0}, action) => {
         default: return state;
     }
 }
+
+/* state = {
+    isFlipped: [] //array of indexes 0-19
+        [flase,true,true,true,false,]
+}
+
+*/
