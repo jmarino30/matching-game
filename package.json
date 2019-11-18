@@ -1,11 +1,11 @@
 {
   "name": "matching-game",
-  "homepage" : "https://jmarino30.github.io/matching-game",
+  "homepage": "https://jmarino30.github.io/matching-game",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^2.1.1",
     "react": "^16.11.0",
-    "react-card-flip": "^1.0.10",
     "react-dom": "^16.11.0",
     "react-redux": "^7.1.3",
     "react-scripts": "3.2.0",
@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy" : "npm run build&&gh-pages -d build"
+    "deploy": "npm run build&&gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

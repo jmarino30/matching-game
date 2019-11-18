@@ -1,17 +1,13 @@
 import React from 'react';
-import ReactCardFlip from 'react-card-flip';
 import CardFront from './CardFront';
 import CardBack from './CardBack';
 import { connect } from 'react-redux';
-import { requestRobots, handleFlip, setNumberOfCards, resetActiveCards, createInitialIsFlippedState, createInitialIsMatchedState, handleMatchFound, storePreviousCard, setPending } from '../actions';
+import { requestRobots, handleFlip, resetActiveCards, createInitialIsFlippedState, createInitialIsMatchedState, handleMatchFound, storePreviousCard, setPending } from '../actions';
 import './CardList.css';
 
 class CardList extends React.Component {
     componentDidMount() {
-        this.props.setNumberOfCards();
-        this.props.requestRobots(this.props.numOfCards);
-        this.props.createInitialIsFlippedState(this.props.numOfCards);
-        this.props.createInitialIsMatchedState(this.props.numOfCards);
+        this.props.startNewGame(20);
     }
     handleClick = (index, robotId) => {
         //check if card is already matched or previous card
@@ -60,26 +56,6 @@ class CardList extends React.Component {
                 </div>
             );
         });
-        /*
-        let arrOfMatchedCards = this.props.robots.map((robot,index) => {
-            return (
-                <div className={this.props.isMatched[index] ? "scene scene--card grow border" : "scene scene--card grow"} key={index+10}>
-                    <div className={this.props.isFlipped[index+10] ? "card shadow-5 is-flipped" : "card shadow-5"}>
-                        <div className="card__face card__face--front">
-                            <CardFront onClick={() => this.handleClick(index+10, robot.id)} />
-                        </div>
-                        <div className="card__face card__face--back">
-                            <CardBack 
-                                robotName={robot.name} 
-                                id={robot.id} 
-                                onClick={() => this.handleClick(index+10, robot.id)}
-                            />
-                        </div>
-                    </div>
-                </div>
-            );
-        }); 
-        */
         return <div>{arrOfCards}</div>; 
     }
     render() {
@@ -97,10 +73,9 @@ const mapStateToProps = state => {
         robots: state.requestRobots.robots,
         isFlipped: state.handleIsFlipReducer.isFlipped,
         isMatched: state.handleMatchesReducer.isMatched,
-        previousCard: state.handleActiveCardsReducer.previousCard,
-        numOfCards: state.handleNumberOfCards.numOfCards
+        previousCard: state.handleActiveCardsReducer.previousCard
     }
 }
 
-export default connect(mapStateToProps, { requestRobots, handleFlip, setNumberOfCards, resetActiveCards, createInitialIsFlippedState, createInitialIsMatchedState, handleMatchFound, storePreviousCard, setPending })(CardList);
+export default connect(mapStateToProps, { requestRobots, handleFlip, resetActiveCards, createInitialIsFlippedState, createInitialIsMatchedState, handleMatchFound, storePreviousCard, setPending })(CardList);
 

@@ -1,7 +1,14 @@
 import { 
     REQUEST_ROBOTS_PENDING,
     REQUEST_ROBOTS_SUCCESS,
-    REQUEST_ROBOTS_FAILED
+    REQUEST_ROBOTS_FAILED,
+    HANDLE_FLIP,
+    CREATE_INITIAL_IS_FLIPPED_STATE,
+    CREATE_INITIAL_IS_MATCHED_STATE,
+    RESET_ACTIVE_CARDS,
+    STORE_PREVIOUS_CARD,
+    PREVIOUS_CARD_PENDING,
+    MATCH_FOUND
 } from '../constants';
 
 const initialStateRobots = {
@@ -21,31 +28,15 @@ export const requestRobots = (state=initialStateRobots, action={}) => {
             return state;
     }
 }
-export const handleNumberOfCards = (state={numOfCards: 20}, action) => {
-    switch (action.type) {
-        case 'SET_NUMBER_OF_CARDS':
-            return {...state, numOfCards: action.payload}
-        default:
-            return state;
-    }
-}
 export const handleIsFlipReducer = (state={isFlipped:[]}, action) => {
     let isFlipped = [];
     switch (action.type) {
-        case 'CREATE_INITIAL_IS_FLIPPED_STATE':
+        case CREATE_INITIAL_IS_FLIPPED_STATE:
             return {...state, isFlipped: action.payload};
-        case 'HANDLE_FLIP':
+        case HANDLE_FLIP:
             isFlipped = state.isFlipped.map((card, index) => {
                 if (index === action.payload) {
                     return !card;
-                }
-                return card;
-            });
-            return {...state, isFlipped};
-        case 'HANDLE_FLIP_RESET':
-            isFlipped = state.isFlipped.map((card, index) => {
-                if (index === action.payload.cardOneIndex || index === action.payload.cardTwoIndex) {
-                    return false;
                 }
                 return card;
             });
@@ -56,9 +47,9 @@ export const handleIsFlipReducer = (state={isFlipped:[]}, action) => {
 }
 export const handleMatchesReducer = (state={isMatched:[]}, action) => {
     switch (action.type) {
-        case 'CREATE_INITIAL_IS_MATCHED_STATE':
+        case CREATE_INITIAL_IS_MATCHED_STATE:
             return {...state, isMatched: action.payload};
-        case 'MATCH_FOUND':
+        case MATCH_FOUND:
             const isMatched = state.isMatched.map((card, index) => {
                 if (index === action.payload.cardOneIndex || index === action.payload.cardTwoIndex) {
                     return true;
@@ -79,7 +70,7 @@ const initialActiveCardsState = {
 }
 export const handleActiveCardsReducer = (state=initialActiveCardsState, action) => {
     switch (action.type) {
-        case 'STORE_PREVIOUS_CARD': 
+        case STORE_PREVIOUS_CARD: 
             return {...state, 
                     previousCard: {
                         ...state.previousCard, 
@@ -87,14 +78,14 @@ export const handleActiveCardsReducer = (state=initialActiveCardsState, action) 
                             id: action.payload.id
                         }
                     };
-        case 'PREVIOUS_CARD_PENDING': 
+        case PREVIOUS_CARD_PENDING: 
             return {...state, 
                     previousCard: {
                         ...state.previousCard, 
                             pending: true, 
                         }
                     };
-        case 'RESET_ACTIVE_CARDS':
+        case RESET_ACTIVE_CARDS:
                 return {...state, 
                         previousCard: {
                             ...state.previousCard, 
@@ -160,18 +151,4 @@ export const handleFlipReducer = (state={}, action={}) => {
         default: return state;
     }
 }
-*/
-
-/*
-STATE PROBZ!!!!!!!!
-
-isFlipped = [false, false, ...]
-isMatched = [false, false, ...]
-activeCardOne = (index, robot.id)
-activeCardTwo = (index, robot.id)
-
-
-
-
-
 */
