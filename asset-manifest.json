@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/matching-game/static/css/main.69b3ab0e.chunk.css",
+    "main.js": "/matching-game/static/js/main.30fc526a.chunk.js",
+    "main.js.map": "/matching-game/static/js/main.30fc526a.chunk.js.map",
+    "runtime-main.js": "/matching-game/static/js/runtime-main.fb02cceb.js",
+    "runtime-main.js.map": "/matching-game/static/js/runtime-main.fb02cceb.js.map",
+    "static/js/2.02c30aef.chunk.js": "/matching-game/static/js/2.02c30aef.chunk.js",
+    "static/js/2.02c30aef.chunk.js.map": "/matching-game/static/js/2.02c30aef.chunk.js.map",
+    "index.html": "/matching-game/index.html",
+    "precache-manifest.9aeb8ba73da908b0e97ef8f6947c8aa4.js": "/matching-game/precache-manifest.9aeb8ba73da908b0e97ef8f6947c8aa4.js",
+    "service-worker.js": "/matching-game/service-worker.js",
+    "static/css/main.69b3ab0e.chunk.css.map": "/matching-game/static/css/main.69b3ab0e.chunk.css.map",
+    "static/media/CardBack.png": "/matching-game/static/media/CardBack.6f465c93.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fb02cceb.js",
+    "static/js/2.02c30aef.chunk.js",
+    "static/css/main.69b3ab0e.chunk.css",
+    "static/js/main.30fc526a.chunk.js"
+  ]
+}
