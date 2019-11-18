@@ -21,78 +21,157 @@ export const requestRobots = (state=initialStateRobots, action={}) => {
             return state;
     }
 }
-const initialCardState = {
-    isFlipped_0 : false,
-    isFlipped_1 : false,
-    isFlipped_2 : false,
-    isFlipped_3 : false,
-    isFlipped_4 : false,
-    isFlipped_5 : false,
-    isFlipped_6 : false,
-    isFlipped_7 : false,
-    isFlipped_8 : false,
-    isFlipped_9 : false,
-    isFlipped_10 : false,
-    isFlipped_11 : false,
-    isFlipped_12 : false,
-    isFlipped_13 : false,
-    isFlipped_14 : false,
-    isFlipped_15 : false,
-    isFlipped_16 : false,
-    isFlipped_17 : false,
-    isFlipped_18 : false,
-    isFlipped_19 : false,
-}
-export const handleFlipReducer = (state=initialCardState, action={}) => {
+export const handleNumberOfCards = (state={numOfCards: 20}, action) => {
     switch (action.type) {
-        case 'CARD_CLICKED_0': return {...state, isFlipped_0: !state.isFlipped_0};
-        case 'CARD_CLICKED_1': return {...state, isFlipped_1: !state.isFlipped_1};
-        case 'CARD_CLICKED_2': return {...state, isFlipped_2: !state.isFlipped_2};
-        case 'CARD_CLICKED_3': return {...state, isFlipped_3: !state.isFlipped_3};
-        case 'CARD_CLICKED_4': return {...state, isFlipped_4: !state.isFlipped_4};
-        case 'CARD_CLICKED_5': return {...state, isFlipped_5: !state.isFlipped_5};
-        case 'CARD_CLICKED_6': return {...state, isFlipped_6: !state.isFlipped_6};
-        case 'CARD_CLICKED_7': return {...state, isFlipped_7: !state.isFlipped_7};
-        case 'CARD_CLICKED_8': return {...state, isFlipped_8: !state.isFlipped_8};
-        case 'CARD_CLICKED_9': return {...state, isFlipped_9: !state.isFlipped_9};
-        case 'CARD_CLICKED_10': return {...state, isFlipped_10: !state.isFlipped_10};
-        case 'CARD_CLICKED_11': return {...state, isFlipped_11: !state.isFlipped_11};
-        case 'CARD_CLICKED_12': return {...state, isFlipped_12: !state.isFlipped_12};
-        case 'CARD_CLICKED_13': return {...state, isFlipped_13: !state.isFlipped_13};
-        case 'CARD_CLICKED_14': return {...state, isFlipped_14: !state.isFlipped_14};
-        case 'CARD_CLICKED_15': return {...state, isFlipped_15: !state.isFlipped_15};
-        case 'CARD_CLICKED_16': return {...state, isFlipped_16: !state.isFlipped_16};
-        case 'CARD_CLICKED_17': return {...state, isFlipped_17: !state.isFlipped_17};
-        case 'CARD_CLICKED_18': return {...state, isFlipped_18: !state.isFlipped_18};
-        case 'CARD_CLICKED_19': return {...state, isFlipped_19: !state.isFlipped_19};
+        case 'SET_NUMBER_OF_CARDS':
+            return {...state, numOfCards: action.payload}
+        default:
+            return state;
+    }
+}
+export const handleIsFlipReducer = (state={isFlipped:[]}, action) => {
+    let isFlipped = [];
+    switch (action.type) {
+        case 'CREATE_INITIAL_IS_FLIPPED_STATE':
+            return {...state, isFlipped: action.payload};
+        case 'HANDLE_FLIP':
+            isFlipped = state.isFlipped.map((card, index) => {
+                if (index === action.payload) {
+                    return !card;
+                }
+                return card;
+            });
+            return {...state, isFlipped};
+        case 'HANDLE_FLIP_RESET':
+            isFlipped = state.isFlipped.map((card, index) => {
+                if (index === action.payload.cardOneIndex || index === action.payload.cardTwoIndex) {
+                    return false;
+                }
+                return card;
+            });
+            return {...state, isFlipped};
+        default: 
+            return state;
+    }
+}
+export const handleMatchesReducer = (state={isMatched:[]}, action) => {
+    switch (action.type) {
+        case 'CREATE_INITIAL_IS_MATCHED_STATE':
+            return {...state, isMatched: action.payload};
+        case 'MATCH_FOUND':
+            const isMatched = state.isMatched.map((card, index) => {
+                if (index === action.payload.cardOneIndex || index === action.payload.cardTwoIndex) {
+                    return true;
+                }
+                return card;
+            });
+            return {...state, isMatched};
+        default:
+            return state;
+    }
+}
+const initialActiveCardsState = {
+    previousCard: {
+        index: null,
+        id: null,
+        pending: false
+    }
+}
+export const handleActiveCardsReducer = (state=initialActiveCardsState, action) => {
+    switch (action.type) {
+        case 'STORE_PREVIOUS_CARD': 
+            return {...state, 
+                    previousCard: {
+                        ...state.previousCard, 
+                            index: action.payload.cardIndex, 
+                            id: action.payload.id
+                        }
+                    };
+        case 'PREVIOUS_CARD_PENDING': 
+            return {...state, 
+                    previousCard: {
+                        ...state.previousCard, 
+                            pending: true, 
+                        }
+                    };
+        case 'RESET_ACTIVE_CARDS':
+                return {...state, 
+                        previousCard: {
+                            ...state.previousCard, 
+                                index: null, 
+                                id: null,
+                                pending: false
+                            }
+                        };
+        default:
+            return state;
+    }
+}
+/*
+export const handleFlipReducer = (state={}, action={}) => {
+    let cards = [];
+    switch (action.type) {
+        case 'CREATE_INIITAL_CARD_STATE':
+            //payload of number of cards
+            
+            cards.push({isFlipped: false, isMatched: false, isActive: false, id: action.payload});
+            
+            return {...state, cards};
+        case 'ASSIGN_ROBOT_ID':
+            cards = state.cards.map((card, index) => {
+                if (action.payload.cardIndex === index) {
+                    return {...card, robotId: action.payload.robotId};
+                }
+                return card;
+            });
+            return {...state, cards};
+        case 'CARD_CLICKED':
+             cards = state.cards.map((card, index) => {
+                if (action.payload.cardIndex === index) {
+                    if (!card.isMatched) {
+                        return {...card, isFlipped: !card.isFlipped, isActive: true};
+                    }
+                }
+                return card;
+            });
+            return {...state, cards};
+        case 'MATCH_FOUND': 
+             cards = state.cards.map((card, index) => {
+                if (action.payload.cardOneIndex === index) {
+                    return {...card, isMatched: true};
+                } else if (action.payload.cardTwoIndex === index) {
+                    return {...card, isMatched: true};
+                } else {
+                    return card;
+                }
+            });
+            return {...state, cards}; 
+        case 'RESET_ACTIVE_CARDS':
+            cards = state.cards.map((card, index) => {
+                if (action.payload.cardOneIndex === index) {
+                    return {...card, isActive: false}
+                } else if (action.payload.cardTwoIndex === index) {
+                    return {...card, isActive: false}
+                } else {
+                    return card;
+                }
+            });
+            return {...state, cards};
         default: return state;
     }
 }
-const initialSelectionsState = {
-    firstSelection: null,
-    secondSelection: null,
-    firstRobotID: null,
-    secondRobotID: null
-}
-export const handleSelectionsReducer = (state=initialSelectionsState, action) => {
-    switch (action.type) {
-        case 'FIRST_SELECTION': return {...state, firstSelection: action.payload.cardIndex, firstRobotID: action.payload.robotID};
-        case 'SECOND_SELECTION': return {...state, secondSelection: action.payload.cardIndex, secondRobotID: action.payload.robotID};
-        case 'RESET_SELECTIONS': return {...state, ...state, firstSelection: null, secondSelection: null, firstRobotID: null, secondRobotID: null}
-        default: return state;
-    }
-}
-export const matchReducer = (state={matches: 0}, action) => {
-    switch (action.type) {
-        case 'MATCH_FOUND': return {...state, matches: state.matches++};
-        case 'MATCH_NOT_FOUND': return state;
-        default: return state;
-    }
-}
+*/
 
-/* state = {
-    isFlipped: [] //array of indexes 0-19
-        [flase,true,true,true,false,]
-}
+/*
+STATE PROBZ!!!!!!!!
+
+isFlipped = [false, false, ...]
+isMatched = [false, false, ...]
+activeCardOne = (index, robot.id)
+activeCardTwo = (index, robot.id)
+
+
+
+
 
 */

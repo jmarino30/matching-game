@@ -5,50 +5,90 @@ import {
     CARD_CLICKED
 } from '../constants';
 
-export const requestRobots = () => dispatch => {
+
+const shuffle = (array) => {
+    for(let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i)
+        const temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+      }
+}
+export const requestRobots = (numOfCards) => dispatch => {
     dispatch({ type: REQUEST_ROBOTS_PENDING });
-    fetch('https://jsonplaceholder.typicode.com/users')
+   // fetch('https://jsonplaceholder.typicode.com/users') 
+    fetch(`https://randomuser.me/api/?results=${parseInt(numOfCards/2)}&inc=name,email`)
         .then(response => response.json())
-        .then(data => dispatch({ type: REQUEST_ROBOTS_SUCCESS, payload: data }))
+        .then(data => {
+            // Create copy of each robot
+            let matchedRobots = []; 
+            for (const value in data.results) {
+                matchedRobots.push(data.results[value]);
+                matchedRobots.push(data.results[value]);
+            }
+            // Shuffle deck (robots)
+            shuffle(matchedRobots); 
+            dispatch({ type: REQUEST_ROBOTS_SUCCESS, payload: matchedRobots })})
         .catch(error => dispatch({ type: REQUEST_ROBOTS_FAILED, payload: error }))
 }
-
-export const handleFlip = cardID => {
+export const setNumberOfCards = numOfCards => {
     return {
-        type: `${CARD_CLICKED}_${cardID}`,
+        type: 'SET_NUMBER_OF_CARDS',
+        payload: numOfCards
     }
 }
-export const handleFirstSelection = (cardIndex, robotID) => {
+export const handleFlip = (cardIndex) => {
     return {
-        type: 'FIRST_SELECTION',
+        type: 'HANDLE_FLIP',
+        payload: cardIndex
+    }
+}
+export const createInitialIsFlippedState = numOfCards => {
+    let isFlipped = new Array(numOfCards).fill(false);
+    return {
+        type: 'CREATE_INITIAL_IS_FLIPPED_STATE',
+        payload: isFlipped
+    }
+}
+export const createInitialIsMatchedState = numOfCards => {
+    let isMatched = new Array(numOfCards).fill(false);
+    return {
+        type: 'CREATE_INITIAL_IS_MATCHED_STATE',
+        payload: isMatched
+    }
+}
+export const resetActiveCards = (cardOneIndex, cardTwoIndex) => {
+    return {
+        type: 'RESET_ACTIVE_CARDS',
         payload: {
-            cardIndex,
-            robotID
+            cardOneIndex,
+            cardTwoIndex
         }
     }
 }
-export const handleSecondSelection = (cardIndex, robotID) => {
+export const storePreviousCard = (cardIndex, id) => {
     return {
-        type: 'SECOND_SELECTION',
+        type: 'STORE_PREVIOUS_CARD',
         payload: {
             cardIndex,
-            robotID
+            id,
+            pending: false
         }
     }
 }
-export const resetSelections = () => {
+export const setPending = value => {
     return {
-        type: 'RESET_SELECTIONS'
+        type: 'PREVIOUS_CARD_PENDING',
+        payload: value
     }
 }
-export const handleMatchFound = () => {
+export const handleMatchFound = (cardOneIndex, cardTwoIndex) => {
     return {
-        type: 'MATCH_FOUND'
-    }
-}
-export const handleMatchNotFound = () => {
-    return {
-        type: 'MATCH_NOT_FOUND'
+        type: 'MATCH_FOUND',
+        payload: {
+            cardOneIndex,
+            cardTwoIndex
+        }
     }
 }
 
