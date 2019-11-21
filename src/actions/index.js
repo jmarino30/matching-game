@@ -90,3 +90,9 @@ export const handleMatchFound = (cardOneIndex, cardTwoIndex) => {
         }
     }
 }
+export const setDeckSet = deckSet => {
+    return {
+        type: 'SET_DECK_SET',
+        payload: deckSet
+    }
+}

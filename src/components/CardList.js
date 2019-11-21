@@ -49,6 +49,7 @@ class CardList extends React.Component {
                             <CardBack 
                                 robotName={robot.name.first} 
                                 id={robot.email}
+                                deckSet={this.props.deckSet}
                                 onClick={() => this.handleClick(index, robot.email)}
                             />
                         </div>
@@ -73,7 +74,8 @@ const mapStateToProps = state => {
         robots: state.requestRobots.robots,
         isFlipped: state.handleIsFlipReducer.isFlipped,
         isMatched: state.handleMatchesReducer.isMatched,
-        previousCard: state.handleActiveCardsReducer.previousCard
+        previousCard: state.handleActiveCardsReducer.previousCard,
+        deckSet: state.deckSetReducer.deckSet
     }
 }
 

@@ -12,16 +12,16 @@ h1 {
  }
  h2 {
     background: linear-gradient(to right, #9eebcf 30%, lightseagreen 80%);
-    padding: 10px 0;
+    margin: 10px 0;
     color: rgba(7,27,82);
     width: 100%;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
  }
- .labels {
-     display: inline-block;
-     padding: 0px 20px;
- }
- input {
-     width: 60px;
+ input, select {
+     width: 45px;
      background: whitesmoke;
      border: 4px inset lightgray;
      border-radius: 5px;
@@ -33,7 +33,69 @@ h1 {
      border: 4px inset lightgray;
      cursor: pointer;
  }
- @keyframes slideInFromLeft {
+ ul {
+     list-style-type: none;
+     text-align: left;
+     overflow: hidden;
+ }
+ li {
+     display: inline;
+ }
+ .matches {
+     width: 70vw;
+     text-align: left;
+     padding-left: 10px;
+ }
+ .options-button {
+    width: 27vw;
+    padding-left: 2px;
+ }
+ .options-menu {
+    width: 75vw;
+    margin-left: 10px;
+    font-size: 16px;
+ }
+ .container {
+     width: 200vw;
+     height: 50px;
+     font-size: 22px;
+     line-height: 50px;
+ }
+ .mobile-options-menu {
+     font-size: 14px;
+     z-index: 1;
+     background: linear-gradient(to right, #9eebcf 30%, lightseagreen 80%);
+     margin-top: -45px;
+     margin-bottom: 35px;
+     color: rgba(7,27,82);
+     width: 100%;
+     height: 30px;
+     overflow: hidden;
+     line-height: 30px;
+ }
+ @keyframes slideOut {
+     0% {
+        margin-left: 0;
+     }
+     100% {
+        transform: translateX(-75vw);
+     }
+ }
+ .slideOut {
+     animation: 1.2s ease-in-out 0s 1 slideOut forwards;
+ } 
+ @keyframes slideIn {
+    0% {
+        transform: translateX(-75vw);
+    }
+    100% {
+        transform: translateX(0vw);
+    }
+}
+.slideIn {
+    animation: 1.2s ease-in-out 0s 1 slideIn forwards;
+}
+ @keyframes rotate {
     0% {
         transform: rotate(0deg);
     }
@@ -42,16 +104,38 @@ h1 {
         border: 3px solid black;
     }
 }
+.slideDown {
+    animation: 1.2s ease-in-out 0s 1 slideDown forwards;
+}
+@keyframes slideDown {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(35px);
+    }
+}
+.slideUp {
+    animation: 1.2s ease-in-out 0s 1 slideUp forwards;
+}
+@keyframes slideUp {
+    0% {
+        transform: translateY(35px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
 .border {
     position: relative;
     transform-style: preserve-3d;
     transform-origin: center;
-    animation: 1s ease-in 0s 1 slideInFromLeft forwards;
+    animation: 1s ease-in 0s 1 rotate forwards;
 }
 
 .scene {
-  width: 150px;
-  height: 150px;
+  width: 125px;
+  height: 125px;
   margin: 10px;
   display: inline-block;
 }
@@ -105,5 +189,21 @@ h1 {
     }
     .card-text {
         font-size: 10px;
+    }
+    h2 {
+        height: 40px;
+        font-size: 18px;
+        line-height: 40px;
+    }
+    input, select {
+        width: 35px;
+        background: whitesmoke;
+        border: 2px inset lightgray;
+        border-radius: 5px;
+        color: rgba(7,27,82);
+        margin: 0 3px;
+    }
+    button {
+        border: 2px inset lightgray;
     }
   }

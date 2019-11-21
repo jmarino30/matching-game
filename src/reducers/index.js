@@ -98,6 +98,14 @@ export const handleActiveCardsReducer = (state=initialActiveCardsState, action) 
             return state;
     }
 }
+export const deckSetReducer = (state={deckSet: 1}, action) => {
+    switch (action.type) {
+        case 'SET_DECK_SET': 
+            return {...state, deckSet: action.payload};
+        default:
+            return state;
+    }
+}
 /*
 export const handleFlipReducer = (state={}, action={}) => {
     let cards = [];

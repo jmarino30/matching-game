@@ -2,7 +2,7 @@ import React from 'react';
 import CardList from './CardList';
 import Labels from './Labels';
 import {connect} from 'react-redux';
-import { requestRobots, createInitialIsMatchedState, createInitialIsFlippedState } from '../actions';
+import { requestRobots, createInitialIsMatchedState, createInitialIsFlippedState, setDeckSet } from '../actions';
 
 
 class App extends React.Component {
@@ -22,4 +22,4 @@ class App extends React.Component {
         );
     }
 }
-export default connect(null, { requestRobots, createInitialIsFlippedState, createInitialIsMatchedState })(App);
+export default connect(null, { requestRobots, createInitialIsFlippedState, createInitialIsMatchedState, setDeckSet })(App);
