@@ -3,7 +3,6 @@ import CardFront from './CardFront';
 import CardBack from './CardBack';
 import { connect } from 'react-redux';
 import { requestRobots, handleFlip, resetActiveCards, createInitialIsFlippedState, createInitialIsMatchedState, handleMatchFound, storePreviousCard, setPending } from '../actions';
-import './CardList.css';
 
 class CardList extends React.Component {
     componentDidMount() {

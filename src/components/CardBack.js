@@ -10,7 +10,7 @@ const CardBack = props => {
                 `https://robohash.org/${props.id}?size=60x60&set=set${props.deckSet}`} 
                 alt='robot'/>
             <div className="card-text">
-                {window.innerWidth > 600 ? props.robotName : ''}
+                {props.robotName}
             </div>
         </div>
     );

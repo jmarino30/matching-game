@@ -8,7 +8,8 @@ import {
     RESET_ACTIVE_CARDS,
     STORE_PREVIOUS_CARD,
     PREVIOUS_CARD_PENDING,
-    MATCH_FOUND
+    MATCH_FOUND,
+    SET_DECK_SET
 } from '../constants';
 
 const initialStateRobots = {
@@ -100,7 +101,7 @@ export const handleActiveCardsReducer = (state=initialActiveCardsState, action) 
 }
 export const deckSetReducer = (state={deckSet: 1}, action) => {
     switch (action.type) {
-        case 'SET_DECK_SET': 
+        case SET_DECK_SET: 
             return {...state, deckSet: action.payload};
         default:
             return state;

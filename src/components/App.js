@@ -3,7 +3,7 @@ import CardList from './CardList';
 import Labels from './Labels';
 import {connect} from 'react-redux';
 import { requestRobots, createInitialIsMatchedState, createInitialIsFlippedState, setDeckSet } from '../actions';
-
+import './CardList.css';
 
 class App extends React.Component {
 

@@ -8,16 +8,16 @@ import {
     RESET_ACTIVE_CARDS,
     STORE_PREVIOUS_CARD,
     PREVIOUS_CARD_PENDING,
-    MATCH_FOUND
+    MATCH_FOUND,
+    SET_DECK_SET
 } from '../constants';
-
 
 const shuffle = (array) => {
     for(let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * i)
-        const temp = array[i]
-        array[i] = array[j]
-        array[j] = temp
+        const j = Math.floor(Math.random() * i);
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
       }
 }
 export const requestRobots = (numOfCards) => dispatch => {
@@ -92,7 +92,7 @@ export const handleMatchFound = (cardOneIndex, cardTwoIndex) => {
 }
 export const setDeckSet = deckSet => {
     return {
-        type: 'SET_DECK_SET',
+        type: SET_DECK_SET,
         payload: deckSet
     }
 }
