@@ -5,15 +5,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import App from './components/App';
-import {requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer} from './reducers';
+import {requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer, modalReducer, optionsReducer} from './reducers';
 
 const logger = createLogger();
-const rootReducer = combineReducers({requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer});
+const rootReducer = combineReducers({requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer, modalReducer, optionsReducer});
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
-    <Provider store={store} >
-        <App />
-    </Provider>
-    , 
+    <Provider store={store} ><App /></Provider>, 
     document.getElementById('root'));

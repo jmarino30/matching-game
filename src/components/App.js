@@ -4,6 +4,7 @@ import Labels from './Labels';
 import {connect} from 'react-redux';
 import { requestRobots, createInitialIsMatchedState, createInitialIsFlippedState, setDeckSet } from '../actions';
 import './CardList.css';
+import Modal from './Modal';
 
 class App extends React.Component {
 
@@ -16,10 +17,22 @@ class App extends React.Component {
         return (
             <div className="tc">
                 <h1 className="tc">ROBOFRIENDS</h1>
+                { this.props.modal ? 
+                    <Modal 
+                    type={this.props.modal} 
+                    body={this.props.message} 
+                    startNewGame={this.startNewGame} /> 
+                : null }
                 <Labels startNewGame={this.startNewGame} />
                 <CardList startNewGame={this.startNewGame} />
             </div>
         );
     }
 }
-export default connect(null, { requestRobots, createInitialIsFlippedState, createInitialIsMatchedState, setDeckSet })(App);
+const mapStateToProps = state => {
+    return {
+        modal: state.modalReducer.modal,
+        message: state.modalReducer.message
+    };
+}
+export default connect(mapStateToProps, { requestRobots, createInitialIsFlippedState, createInitialIsMatchedState, setDeckSet })(App);

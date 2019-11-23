@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setDeckSet } from '../actions';
+import { setDeckSet, modalAlert, modalPrompt, closeModal, optionsOn, toggleOptions, setNumOfCards } from '../actions';
 import './Hamburgers.css';
 import './Fireworks.css';
 
 class Labels extends React.Component {
     state = {
-        numOfCardsInput: 20,
-        optionsMenu: null
+        numOfCardsInput: 20
     }
     handleKeyPress = e => {
         if (this.props.previousCard.pending && this.props.previousCard.id !== null) {
@@ -18,15 +17,18 @@ class Labels extends React.Component {
     }
     handleSubmit = () => {
         if (this.props.previousCard.pending  || this.props.previousCard.id !== null) {
-            alert("Please finish current selection before starting a new game!");
+            this.props.modalAlert('Please finish current selection before starting a new game!');
         } else if (this.state.numOfCardsInput < 2 || this.state.numOfCardsInput === '') {
-                alert("Every robot needs a friend. Please enter a number 2 or greater.")
+            this.props.modalAlert("Every robot needs a friend. Please enter a number 2 or greater.");
         } else {
-            const r = window.confirm("This will obliterate all current robots and start a new game. Do you still wish to continue?"); 
+            this.props.modalPrompt("This will obliterate all current robots and start a new game. Do you still wish to continue?");
+            //submit? startnewgame, setstate optionsmenu, closeModal
+            /* const r = window.confirm("This will obliterate all current robots and start a new game. Do you still wish to continue?"); 
                 if (r === true) { 
                     this.props.startNewGame(this.state.numOfCardsInput);
                     this.setState({ optionsMenu : false });
                 }
+            */
         }
     }
     handleChange = e => {
@@ -39,16 +41,17 @@ class Labels extends React.Component {
         }
     }
     toggleOptionsMenu = e => {
-        if (this.state.optionsMenu === null) {
-            this.setState({ optionsMenu: true });
+        if (this.props.optionsMenu === null) {
+            this.props.optionsOn();
         } else {
-            this.setState({ optionsMenu: !this.state.optionsMenu });
+            this.props.toggleOptions();
         }
     }
     handleSelect = e => {
         this.props.setDeckSet(parseInt(e.target.value));
     }
     render() {
+        //calculate matches to display in label
         let totalMatches = 0;
         let matchesFound = 0;
         this.props.isMatched.forEach(card => {
@@ -56,6 +59,12 @@ class Labels extends React.Component {
         });
         matchesFound /= 2;
         totalMatches = parseInt(this.props.isMatched.length / 2);
+        //if modal prompt confirms new game
+        if (this.props.submit) {
+            this.props.startNewGame(this.state.numOfCardsInput);
+            this.setState({ optionsMenu: false });
+            this.props.closeModal();
+        }
         return (
             <div>
                 { window.innerWidth > 1020 ? //options on main screen
@@ -84,14 +93,14 @@ class Labels extends React.Component {
                 window.innerWidth > 600 ? //desktop version
                     <h2>
                         <div className="container">
-                            <div className={this.state.optionsMenu === null ? null : this.state.optionsMenu ? "slideOut" : "slideIn"}>
+                            <div className={this.props.optionsMenu === null ? null : this.props.optionsMenu ? "slideOut" : "slideIn"}>
                                 <span className="matches fl">
                                     {matchesFound === totalMatches ? <button className="grow" onClick={this.handleSubmit}>New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
                                 </span>
                                 <span className="options-button fl">
                                     <span className="fr grow" onClick={this.toggleOptionsMenu} style={{cursor:'pointer'}}>
                                         Options
-                                        <button className={this.state.optionsMenu ? "hamburger hamburger--arrowturn-r is-active" : "hamburger hamburger--arrowturn-r"} type="button">
+                                        <button className={this.props.optionsMenu ? "hamburger hamburger--arrowturn-r is-active" : "hamburger hamburger--arrowturn-r"} type="button">
                                             <span className="hamburger-box">
                                                 <span className="hamburger-inner"></span>
                                             </span>
@@ -126,14 +135,14 @@ class Labels extends React.Component {
                                 {matchesFound === totalMatches ? <button className="grow" onClick={this.handleSubmit}>New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
                             </span>
                             <span className="fr dib pr2">
-                                <button onClick={this.toggleOptionsMenu} className={this.state.optionsMenu ? "hamburger hamburger--collapse is-active" : "hamburger hamburger--collapse"} type="button">
+                                <button onClick={this.toggleOptionsMenu} className={this.props.optionsMenu ? "hamburger hamburger--collapse is-active" : "hamburger hamburger--collapse"} type="button">
                                     <span className="hamburger-box">
                                         <span className="hamburger-inner"></span>
                                     </span>
                                 </button> 
                             </span>
                         </h2>
-                        <div className={this.state.optionsMenu === null ? "mobile-options-menu" : this.state.optionsMenu ? "mobile-options-menu slideDown" : "mobile-options-menu slideUp"} >
+                        <div className={this.props.optionsMenu === null ? "mobile-options-menu" : this.props.optionsMenu ? "mobile-options-menu slideDown" : "mobile-options-menu slideUp"} >
                             <div className="w-34 dib tl pl1">
                                 Deck Set:
                                 <select className="shadow-5" value={this.state.deckSet} onChange={this.handleSelect} name="deck" id="deck-select">
@@ -164,7 +173,9 @@ const mapStateToProps = state => {
         isMatched: state.handleMatchesReducer.isMatched,
         deckSet: state.deckSetReducer.deckSet,
         previousCard: state.handleActiveCardsReducer.previousCard,
+        optionsMenu: state.optionsReducer.optionsMenu,
+        submit: state.modalReducer.submit
     }
 }
-export default connect(mapStateToProps, { setDeckSet } )(Labels);
+export default connect(mapStateToProps, { setDeckSet, modalAlert, modalPrompt, closeModal, optionsOn, toggleOptions, setNumOfCards } )(Labels);
 

@@ -11,6 +11,7 @@ import {
     MATCH_FOUND,
     SET_DECK_SET
 } from '../constants';
+import { deflate } from 'zlib';
 
 const initialStateRobots = {
     isPending: false,
@@ -103,6 +104,38 @@ export const deckSetReducer = (state={deckSet: 1}, action) => {
     switch (action.type) {
         case SET_DECK_SET: 
             return {...state, deckSet: action.payload};
+        default:
+            return state;
+    }
+}
+export const modalReducer = (state={modal: null, submit: false}, action) => {
+    switch (action.type) {
+        case 'MODAL_ALERT':
+            return {...state, modal: 'alert', message: action.payload};
+        case 'MODAL_PROMPT':
+            return {...state, modal: 'prompt', message: action.payload};
+        case 'MODAL_SUBMIT':
+            return {...state, submit: true};
+        case 'CLOSE_MODAL':
+            return {...state, modal: null, message: null, submit: false};
+        default:
+            return state;
+    }
+}
+export const optionsReducer = (state={optionsMenu:null}, action) => {
+    switch (action.type) {
+        case 'OPTIONS_ON':
+            return {...state, optionsMenu: true}
+        case 'TOGGLE_OPTIONS':
+            return {...state, optionsMenu: !state.optionsMenu}
+        default:
+            return state;
+    }
+}
+export const numOfCardsReducer = (state={numOfCards: 20}, action) => {
+    switch (action.type) {
+        case 'NUM_OF_CARDS':
+            return {...state, numOfCards: action.payload};
         default:
             return state;
     }

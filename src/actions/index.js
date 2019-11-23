@@ -96,3 +96,41 @@ export const setDeckSet = deckSet => {
         payload: deckSet
     }
 }
+export const modalAlert = message => {
+    return {
+        type: 'MODAL_ALERT',
+        payload: message
+    }
+}
+export const modalPrompt = message => {
+    return {
+        type: 'MODAL_PROMPT',
+        payload: message
+    }
+}
+export const closeModal = () => {
+    return {
+        type: 'CLOSE_MODAL'
+    }
+}
+export const modalSubmit = () => {
+    return {
+        type: 'MODAL_SUBMIT'
+    }
+}
+export const optionsOn = () => {
+    return {
+        type: 'OPTIONS_ON'
+    }
+}
+export const toggleOptions = () => {
+    return {
+        type: 'TOGGLE_OPTIONS'
+    }
+}
+export const setNumOfCards = (numOfCards) => {
+    return {
+        type: 'NUM_OF_CARDS',
+        payload: numOfCards
+    }
+}
