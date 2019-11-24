@@ -9,7 +9,14 @@ import {
     STORE_PREVIOUS_CARD,
     PREVIOUS_CARD_PENDING,
     MATCH_FOUND,
-    SET_DECK_SET
+    SET_DECK_SET,
+    MODAL_ALERT,
+    MODAL_PROMPT,
+    CLOSE_MODAL,
+    OPTIONS_ON,
+    OPTIONS_OFF,
+    TOGGLE_OPTIONS,
+    NUM_OF_CARDS
 } from '../constants';
 
 const shuffle = (array) => {
@@ -98,34 +105,39 @@ export const setDeckSet = deckSet => {
 }
 export const modalAlert = message => {
     return {
-        type: 'MODAL_ALERT',
+        type: MODAL_ALERT,
         payload: message
     }
 }
 export const modalPrompt = message => {
     return {
-        type: 'MODAL_PROMPT',
+        type: MODAL_PROMPT,
         payload: message
     }
 }
 export const closeModal = () => {
     return {
-        type: 'CLOSE_MODAL'
+        type: CLOSE_MODAL
     }
 }
 export const optionsOn = () => {
     return {
-        type: 'OPTIONS_ON'
+        type: OPTIONS_ON
+    }
+}
+export const optionsOff = () => {
+    return {
+        type: OPTIONS_OFF
     }
 }
 export const toggleOptions = () => {
     return {
-        type: 'TOGGLE_OPTIONS'
+        type: TOGGLE_OPTIONS
     }
 }
 export const setNumOfCards = (numOfCards) => {
     return {
-        type: 'NUM_OF_CARDS',
+        type: NUM_OF_CARDS,
         payload: numOfCards
     }
 }

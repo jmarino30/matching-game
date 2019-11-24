@@ -13,5 +13,6 @@ export const MODAL_ALERT = 'MODAL_ALERT';
 export const MODAL_PROMPT = 'MODAL_PROMPT';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const OPTIONS_ON = 'OPTIONS_ON';
+export const OPTIONS_OFF = 'OPTIONS_OFF';
 export const TOGGLE_OPTIONS = 'TOGGLE_OPTIONS';
 export const NUM_OF_CARDS = 'NUM_OF_CARDS';

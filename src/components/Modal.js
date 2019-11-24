@@ -1,7 +1,7 @@
 import React from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
-import { closeModal, toggleOptions } from '../actions';
+import { closeModal, optionsOff } from '../actions';
 
 const Modal = props => {
     const handleCloseModal = () => {
@@ -9,7 +9,7 @@ const Modal = props => {
     }
     const handleSubmit = () => {
         props.startNewGame(props.numOfCards);
-        props.toggleOptions();
+        props.optionsOff();
         props.closeModal();
     }
     const renderModalAlert = () => {
@@ -53,4 +53,4 @@ const mapStateToProps = state => {
         numOfCards: state.numOfCardsReducer.numOfCards
     }
 }
-export default connect(mapStateToProps, { closeModal, toggleOptions })(Modal);
+export default connect(mapStateToProps, { closeModal, optionsOff })(Modal);

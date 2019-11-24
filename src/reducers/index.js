@@ -14,6 +14,7 @@ import {
     MODAL_PROMPT,
     CLOSE_MODAL,
     OPTIONS_ON,
+    OPTIONS_OFF,
     TOGGLE_OPTIONS,
     NUM_OF_CARDS
 } from '../constants';
@@ -131,9 +132,11 @@ export const modalReducer = (state={modal: null}, action) => {
 export const optionsReducer = (state={optionsMenu:null}, action) => {
     switch (action.type) {
         case OPTIONS_ON:
-            return {...state, optionsMenu: true}
+            return {...state, optionsMenu: true};
+        case OPTIONS_OFF:
+            return {...state, optionsMenu: false};
         case TOGGLE_OPTIONS:
-            return {...state, optionsMenu: !state.optionsMenu}
+            return {...state, optionsMenu: !state.optionsMenu};
         default:
             return state;
     }
