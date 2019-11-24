@@ -56,7 +56,7 @@ class Labels extends React.Component {
                         <div className="dib ph4 fl">
                             {matchesFound === totalMatches ? <button className="grow ph2 mh3" onClick={this.handleSubmit}>Start New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
                         </div>
-                        <div className="dib ph3 fl">
+                        <div className="dib ph3">
                             Deck Set:
                             <select value={this.props.deckSet} onChange={this.handleSelect} className="grow pointer shadow-5" name="deck" id="deck-select">
                                 <option value="1">1</option>
@@ -65,7 +65,7 @@ class Labels extends React.Component {
                                 <option value="4">4</option>
                             </select>
                         </div>
-                        <div className="dib ph3 fl">
+                        <div className="dib ph3">
                             # Of Cards:
                             <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.props.numOfCardsInput} />
                         </div>
