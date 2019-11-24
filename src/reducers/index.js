@@ -9,7 +9,13 @@ import {
     STORE_PREVIOUS_CARD,
     PREVIOUS_CARD_PENDING,
     MATCH_FOUND,
-    SET_DECK_SET
+    SET_DECK_SET,
+    MODAL_ALERT,
+    MODAL_PROMPT,
+    CLOSE_MODAL,
+    OPTIONS_ON,
+    TOGGLE_OPTIONS,
+    NUM_OF_CARDS
 } from '../constants';
 
 const initialStateRobots = {
@@ -109,11 +115,14 @@ export const deckSetReducer = (state={deckSet: 1}, action) => {
 }
 export const modalReducer = (state={modal: null}, action) => {
     switch (action.type) {
-        case 'MODAL_ALERT':
+        case MODAL_ALERT:
+            document.body.classList.add('overflow-hidden');
             return {...state, modal: 'alert', message: action.payload};
-        case 'MODAL_PROMPT':
+        case MODAL_PROMPT:
+                document.body.classList.add('overflow-hidden');
             return {...state, modal: 'prompt', message: action.payload};
-        case 'CLOSE_MODAL':
+        case CLOSE_MODAL:
+                document.body.classList.remove('overflow-hidden');
             return {...state, modal: null, message: null};
         default:
             return state;
@@ -121,9 +130,9 @@ export const modalReducer = (state={modal: null}, action) => {
 }
 export const optionsReducer = (state={optionsMenu:null}, action) => {
     switch (action.type) {
-        case 'OPTIONS_ON':
+        case OPTIONS_ON:
             return {...state, optionsMenu: true}
-        case 'TOGGLE_OPTIONS':
+        case TOGGLE_OPTIONS:
             return {...state, optionsMenu: !state.optionsMenu}
         default:
             return state;
@@ -131,7 +140,7 @@ export const optionsReducer = (state={optionsMenu:null}, action) => {
 }
 export const numOfCardsReducer = (state={numOfCards: 20}, action) => {
     switch (action.type) {
-        case 'NUM_OF_CARDS':
+        case NUM_OF_CARDS:
             return {...state, numOfCards: action.payload};
         default:
             return state;

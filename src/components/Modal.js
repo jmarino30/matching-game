@@ -50,14 +50,7 @@ const Modal = props => {
 }
 const mapStateToProps = state => {
     return {
-        modal: state.modalReducer.modal,
         numOfCards: state.numOfCardsReducer.numOfCards
     }
 }
 export default connect(mapStateToProps, { closeModal, toggleOptions })(Modal);
-
-//confirm new game - OK CANCEL
-//not enough cards - OK
-//finish current turn - OK
-
-//no scroll on modal when open (set class on body)

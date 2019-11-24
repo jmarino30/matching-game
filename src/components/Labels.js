@@ -112,7 +112,7 @@ class Labels extends React.Component {
                             </div>
                         </div>
                     </h2>
-                    : //mobile version!
+                    : //mobile version
                     <div>
                         <h2>
                             <span className="tc dib pl4">
