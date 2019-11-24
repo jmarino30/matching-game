@@ -1,20 +1,16 @@
 import React from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
-import { closeModal, modalSubmit, toggleOptions } from '../actions';
+import { closeModal, toggleOptions } from '../actions';
 
 const Modal = props => {
     const handleCloseModal = () => {
         props.closeModal();
     }
     const handleSubmit = () => {
-        props.modalSubmit();
+        props.startNewGame(props.numOfCards);
         props.toggleOptions();
-        props.startNewGame();
         props.closeModal();
-        //close options
-        //start new game (num of cards)
-        //close modal
     }
     const renderModalAlert = () => {
         return (
@@ -24,8 +20,8 @@ const Modal = props => {
                     Beep Boop <span onClick={handleCloseModal} className="exit-button grow shadow-5">X</span>
                 </div>
                 <div className="modal-body">
-                    {props.body}
-                    <button onClick={handleCloseModal} className="grow shadow-5 right">Got it</button>
+                    <p>{props.body}</p>
+                    <button onClick={handleCloseModal} className="grow shadow-5 fr ma3">Got it</button>
                 </div>
             </div>
         </div>
@@ -39,9 +35,9 @@ const Modal = props => {
                     Beep Boop <span onClick={handleCloseModal} className="exit-button grow shadow-5">X</span>
                 </div>
                 <div className="modal-body">
-                    {props.body}
-                    <button onClick={handleSubmit} className="grow shadow-5 right">Confirm</button>
-                    <button onClick={handleCloseModal} className="grow shadow-5 left">Cancel</button>
+                    <p>{props.body}</p>
+                    <button onClick={handleSubmit} className="grow shadow-5 fr ma3">Confirm</button>
+                    <button onClick={handleCloseModal} className="grow shadow-5 fl ma3">Cancel</button>
                 </div>
             </div>
         </div>
@@ -55,10 +51,10 @@ const Modal = props => {
 const mapStateToProps = state => {
     return {
         modal: state.modalReducer.modal,
-        submit: state.modalReducer.submit
+        numOfCards: state.numOfCardsReducer.numOfCards
     }
 }
-export default connect(mapStateToProps, { closeModal, modalSubmit, toggleOptions })(Modal);
+export default connect(mapStateToProps, { closeModal, toggleOptions })(Modal);
 
 //confirm new game - OK CANCEL
 //not enough cards - OK

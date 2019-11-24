@@ -10,8 +10,8 @@
 }
 
 .modal {
-    width: 50vw;
-    height: 35vh;
+    width: 70vw;
+    height: auto;
     background: linear-gradient(to right, #9eebcf 30%, lightseagreen 80%);
     position: absolute;
     top: 30%;
@@ -21,7 +21,8 @@
 }
 
 .modal-title {
-    font-size: 3em;
+    font-size: 30px;
+    padding: 10px 0;
     color: lightseagreen;
     margin-bottom: 20px;
     background: linear-gradient(to left, rgba(7,27,82,1)0%, rgba(0,128,128,1)100%);
@@ -36,21 +37,25 @@
     color: whitesmoke;
     font-family: 'Courier New', Courier, monospace;
 }
-.modal-body {
+.modal-body p {
     font-size: 22px;
     padding: 10px;
     color: rgba(7,27,82);
 }
-
-.modal-body button.right {
-    position: absolute;
-    bottom: 10%;
-    right: 10%;
+@media screen and (max-width: 600px) {
+    .modal {
+        width: 80vw;
+        height: auto;
+    }
+    .modal-title {
+        font-size: 20px;
+        padding: 10px 0;
+    }
+    .modal-body p {
+        font-size: 12px;
+        padding: 5px;
+    }
+    .exit-button {
+        font-size: 16px;
+    }
 }
-
-.modal-body button.left {
-    position: absolute;
-    bottom: 10%;
-    left: 10%;
-}
-

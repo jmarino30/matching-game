@@ -113,11 +113,6 @@ export const closeModal = () => {
         type: 'CLOSE_MODAL'
     }
 }
-export const modalSubmit = () => {
-    return {
-        type: 'MODAL_SUBMIT'
-    }
-}
 export const optionsOn = () => {
     return {
         type: 'OPTIONS_ON'

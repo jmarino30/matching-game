@@ -5,10 +5,10 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import App from './components/App';
-import {requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer, modalReducer, optionsReducer} from './reducers';
+import {requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer, modalReducer, optionsReducer, numOfCardsReducer} from './reducers';
 
 const logger = createLogger();
-const rootReducer = combineReducers({requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer, modalReducer, optionsReducer});
+const rootReducer = combineReducers({requestRobots, handleIsFlipReducer, handleActiveCardsReducer, handleMatchesReducer, deckSetReducer, modalReducer, optionsReducer, numOfCardsReducer});
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(

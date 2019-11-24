@@ -5,12 +5,9 @@ import './Hamburgers.css';
 import './Fireworks.css';
 
 class Labels extends React.Component {
-    state = {
-        numOfCardsInput: 20
-    }
     handleKeyPress = e => {
         if (this.props.previousCard.pending && this.props.previousCard.id !== null) {
-            alert("Please finish current selection before starting a new game!");
+            this.props.modalAlert("Please finish current selection before starting a new game!");
         } else if (e.key === 'Enter') { 
                 this.handleSubmit();
             }
@@ -18,26 +15,19 @@ class Labels extends React.Component {
     handleSubmit = () => {
         if (this.props.previousCard.pending  || this.props.previousCard.id !== null) {
             this.props.modalAlert('Please finish current selection before starting a new game!');
-        } else if (this.state.numOfCardsInput < 2 || this.state.numOfCardsInput === '') {
+        } else if (this.props.numOfCardsInput < 2 || this.props.numOfCardsInput === '') {
             this.props.modalAlert("Every robot needs a friend. Please enter a number 2 or greater.");
         } else {
             this.props.modalPrompt("This will obliterate all current robots and start a new game. Do you still wish to continue?");
-            //submit? startnewgame, setstate optionsmenu, closeModal
-            /* const r = window.confirm("This will obliterate all current robots and start a new game. Do you still wish to continue?"); 
-                if (r === true) { 
-                    this.props.startNewGame(this.state.numOfCardsInput);
-                    this.setState({ optionsMenu : false });
-                }
-            */
         }
     }
     handleChange = e => {
         if (e.target.value === '') {
-            this.setState({ numOfCardsInput: '' });
+            this.props.setNumOfCards('');
         } else if (e.target.value >= 0 && e.target.value < 99) {
-            this.setState({ numOfCardsInput: parseInt(e.target.value) });
+            this.props.setNumOfCards(parseInt(e.target.value));
         } else {
-            this.setState({ numOfCardsInput: '' });
+            this.props.setNumOfCards('');
         }
     }
     toggleOptionsMenu = e => {
@@ -59,12 +49,6 @@ class Labels extends React.Component {
         });
         matchesFound /= 2;
         totalMatches = parseInt(this.props.isMatched.length / 2);
-        //if modal prompt confirms new game
-        if (this.props.submit) {
-            this.props.startNewGame(this.state.numOfCardsInput);
-            this.setState({ optionsMenu: false });
-            this.props.closeModal();
-        }
         return (
             <div>
                 { window.innerWidth > 1020 ? //options on main screen
@@ -74,7 +58,7 @@ class Labels extends React.Component {
                         </div>
                         <div className="dib ph3 fl">
                             Deck Set:
-                            <select value={this.state.deckSet} onChange={this.handleSelect} className="grow pointer shadow-5" name="deck" id="deck-select">
+                            <select value={this.props.deckSet} onChange={this.handleSelect} className="grow pointer shadow-5" name="deck" id="deck-select">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -83,7 +67,7 @@ class Labels extends React.Component {
                         </div>
                         <div className="dib ph3 fl">
                             # Of Cards:
-                            <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.state.numOfCardsInput} />
+                            <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.props.numOfCardsInput} />
                         </div>
                         <div className="dib ph4 fr">
                             <button className="grow" onClick={this.handleSubmit}>RESET</button>
@@ -110,7 +94,7 @@ class Labels extends React.Component {
                                 <span className="options-menu fl" >
                                     <div className="w-40 dib">
                                     Deck Set:
-                                        <select value={this.state.deckSet} onChange={this.handleSelect} className="grow pointer shadow-5" name="deck" id="deck-select">
+                                        <select value={this.props.deckSet} onChange={this.handleSelect} className="grow pointer shadow-5" name="deck" id="deck-select">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -119,7 +103,7 @@ class Labels extends React.Component {
                                     </div>
                                     <div className="w-40 dib">
                                         # Of Cards:
-                                        <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.state.numOfCardsInput} />
+                                        <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.props.numOfCardsInput} />
                                     </div>
                                     <div className="w-20 dib">
                                         <button className="grow" onClick={this.handleSubmit}>DONE</button>
@@ -145,7 +129,7 @@ class Labels extends React.Component {
                         <div className={this.props.optionsMenu === null ? "mobile-options-menu" : this.props.optionsMenu ? "mobile-options-menu slideDown" : "mobile-options-menu slideUp"} >
                             <div className="w-34 dib tl pl1">
                                 Deck Set:
-                                <select className="shadow-5" value={this.state.deckSet} onChange={this.handleSelect} name="deck" id="deck-select">
+                                <select className="shadow-5" value={this.props.deckSet} onChange={this.handleSelect} name="deck" id="deck-select">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -154,7 +138,7 @@ class Labels extends React.Component {
                             </div>
                             <div className="w-40 dib tl pr1">
                                 # Of Cards:
-                                <input inputMode="numeric" pattern="[0-9]*" step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5" type="number" value={this.state.numOfCardsInput} />
+                                <input inputMode="numeric" pattern="[0-9]*" step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5" type="number" value={this.props.numOfCardsInput} />
                             </div>
                             <div className="dib tr p1">
                                 <button className="grow" onClick={this.handleSubmit}>DONE</button>
@@ -174,7 +158,7 @@ const mapStateToProps = state => {
         deckSet: state.deckSetReducer.deckSet,
         previousCard: state.handleActiveCardsReducer.previousCard,
         optionsMenu: state.optionsReducer.optionsMenu,
-        submit: state.modalReducer.submit
+        numOfCardsInput: state.numOfCardsReducer.numOfCards,
     }
 }
 export default connect(mapStateToProps, { setDeckSet, modalAlert, modalPrompt, closeModal, optionsOn, toggleOptions, setNumOfCards } )(Labels);
