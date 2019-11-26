@@ -54,10 +54,10 @@ class Labels extends React.Component {
                 { this.props.width > 1040 ? //options on main screen
                     <h2 style={{lineHeight:"50px"}}>
                         <div className="dib ph4 fl">
-                            {matchesFound === totalMatches ? <button className="grow ph2 mh3" onClick={this.handleSubmit}>Start New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
+                            {matchesFound === totalMatches ? <button className="shadow-5 grow ph2 mh3" onClick={this.handleSubmit}>Start New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
                         </div>
                         <div className="dib ph4 fr">
-                            <button className="grow" onClick={this.handleSubmit}>RESET</button>
+                            <button className="shadow-5 grow" onClick={this.handleSubmit}>RESET</button>
                         </div>
                         <div className="dib ph3 fr">
                             # Of Cards:
@@ -79,7 +79,7 @@ class Labels extends React.Component {
                         <div className="container">
                             <div className={this.props.optionsMenu === null ? null : this.props.optionsMenu ? "slideOut" : "slideIn"}>
                                 <span className="matches fl">
-                                    {matchesFound === totalMatches ? <button className="grow" onClick={this.handleSubmit}>New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
+                                    {matchesFound === totalMatches ? <button className="shadow-5 grow" onClick={this.handleSubmit}>New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
                                 </span>
                                 <span className="options-button fl">
                                     <span className="fr grow" onClick={this.toggleOptionsMenu} style={{cursor:'pointer'}}>
@@ -106,7 +106,7 @@ class Labels extends React.Component {
                                         <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.props.numOfCardsInput} />
                                     </div>
                                     <div className="w-20 dib">
-                                        <button className="grow" onClick={this.handleSubmit}>DONE</button>
+                                        <button className="shadow-5 grow" onClick={this.handleSubmit}>DONE</button>
                                     </div>
                                 </span> 
                             </div>
@@ -116,7 +116,7 @@ class Labels extends React.Component {
                     <div>
                         <h2>
                             <span className="tc dib pl4">
-                                {matchesFound === totalMatches ? <button className="grow" onClick={this.handleSubmit}>New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
+                                {matchesFound === totalMatches ? <button className="shadow-5 grow" onClick={this.handleSubmit}>New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
                             </span>
                             <span className="fr dib pr2">
                                 <button onClick={this.toggleOptionsMenu} className={this.props.optionsMenu ? "hamburger hamburger--collapse is-active" : "hamburger hamburger--collapse"} type="button">
@@ -141,7 +141,7 @@ class Labels extends React.Component {
                                 <input inputMode="numeric" pattern="[0-9]*" step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5" type="number" value={this.props.numOfCardsInput} />
                             </div>
                             <div className="dib tr p1">
-                                <button className="grow" onClick={this.handleSubmit}>DONE</button>
+                                <button className="shadow-5 grow" onClick={this.handleSubmit}>DONE</button>
                             </div>
                         </div>
                     </div>
