@@ -16,7 +16,8 @@ import {
     OPTIONS_ON,
     OPTIONS_OFF,
     TOGGLE_OPTIONS,
-    NUM_OF_CARDS
+    NUM_OF_CARDS,
+    WINDOW_WIDTH
 } from '../constants';
 
 const initialStateRobots = {
@@ -151,7 +152,7 @@ export const numOfCardsReducer = (state={numOfCards: 20}, action) => {
 }
 export const windowWidthReducer = (state={width: 0}, action) => {
     switch (action.type) {
-        case 'WINDOW_WIDTH':
+        case WINDOW_WIDTH:
             return {...state, width: action.payload};
         default:
             return state;

@@ -16,3 +16,4 @@ export const OPTIONS_ON = 'OPTIONS_ON';
 export const OPTIONS_OFF = 'OPTIONS_OFF';
 export const TOGGLE_OPTIONS = 'TOGGLE_OPTIONS';
 export const NUM_OF_CARDS = 'NUM_OF_CARDS';
+export const WINDOW_WIDTH = 'WINDOW_WIDTH';

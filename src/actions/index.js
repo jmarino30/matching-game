@@ -16,7 +16,8 @@ import {
     OPTIONS_ON,
     OPTIONS_OFF,
     TOGGLE_OPTIONS,
-    NUM_OF_CARDS
+    NUM_OF_CARDS,
+    WINDOW_WIDTH
 } from '../constants';
 
 const shuffle = (array) => {
@@ -143,7 +144,7 @@ export const setNumOfCards = (numOfCards) => {
 }
 export const getWindowWidth = () => {
     return {
-        type: 'WINDOW_WIDTH',
+        type: WINDOW_WIDTH,
         payload: window.innerWidth
     }
 }
