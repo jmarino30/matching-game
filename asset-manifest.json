@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/matching-game/static/css/main.b4d4fd34.chunk.css",
-    "main.js": "/matching-game/static/js/main.db04a6f7.chunk.js",
-    "main.js.map": "/matching-game/static/js/main.db04a6f7.chunk.js.map",
+    "main.js": "/matching-game/static/js/main.00c032f4.chunk.js",
+    "main.js.map": "/matching-game/static/js/main.00c032f4.chunk.js.map",
     "runtime-main.js": "/matching-game/static/js/runtime-main.fb02cceb.js",
     "runtime-main.js.map": "/matching-game/static/js/runtime-main.fb02cceb.js.map",
     "static/js/2.e3ca5ff3.chunk.js": "/matching-game/static/js/2.e3ca5ff3.chunk.js",
     "static/js/2.e3ca5ff3.chunk.js.map": "/matching-game/static/js/2.e3ca5ff3.chunk.js.map",
     "index.html": "/matching-game/index.html",
-    "precache-manifest.80b6f9d1bdb9f1f1e1a9da11dbc91919.js": "/matching-game/precache-manifest.80b6f9d1bdb9f1f1e1a9da11dbc91919.js",
+    "precache-manifest.052f1a5e3b5dfc45d9688bbf73b4788b.js": "/matching-game/precache-manifest.052f1a5e3b5dfc45d9688bbf73b4788b.js",
     "service-worker.js": "/matching-game/service-worker.js",
     "static/css/main.b4d4fd34.chunk.css.map": "/matching-game/static/css/main.b4d4fd34.chunk.css.map",
     "static/media/CardBack.png": "/matching-game/static/media/CardBack.6f465c93.png"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.fb02cceb.js",
     "static/js/2.e3ca5ff3.chunk.js",
     "static/css/main.b4d4fd34.chunk.css",
-    "static/js/main.db04a6f7.chunk.js"
+    "static/js/main.00c032f4.chunk.js"
   ]
 }
