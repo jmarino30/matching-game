@@ -2,11 +2,18 @@ import React from 'react';
 import CardList from './CardList';
 import Labels from './Labels';
 import {connect} from 'react-redux';
-import { requestRobots, createInitialIsMatchedState, createInitialIsFlippedState, setDeckSet } from '../actions';
+import { requestRobots, createInitialIsMatchedState, createInitialIsFlippedState, setDeckSet, getWindowWidth } from '../actions';
 import './CardList.css';
 import Modal from './Modal';
 
 class App extends React.Component {
+    componentDidMount() {
+        this.props.getWindowWidth();
+        window.addEventListener('resize', this.props.getWindowWidth);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.props.getWindowWidth);
+      }
 
     startNewGame = (numOfCards) => {
         this.props.requestRobots(numOfCards);
@@ -35,4 +42,4 @@ const mapStateToProps = state => {
         message: state.modalReducer.message
     };
 }
-export default connect(mapStateToProps, { requestRobots, createInitialIsFlippedState, createInitialIsMatchedState, setDeckSet })(App);
+export default connect(mapStateToProps, { requestRobots, createInitialIsFlippedState, createInitialIsMatchedState, setDeckSet, getWindowWidth })(App);

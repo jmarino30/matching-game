@@ -141,3 +141,9 @@ export const setNumOfCards = (numOfCards) => {
         payload: numOfCards
     }
 }
+export const getWindowWidth = () => {
+    return {
+        type: 'WINDOW_WIDTH',
+        payload: window.innerWidth
+    }
+}

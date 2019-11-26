@@ -51,12 +51,19 @@ class Labels extends React.Component {
         totalMatches = parseInt(this.props.isMatched.length / 2);
         return (
             <div>
-                { window.innerWidth > 1020 ? //options on main screen
+                { this.props.width > 1040 ? //options on main screen
                     <h2 style={{lineHeight:"50px"}}>
                         <div className="dib ph4 fl">
                             {matchesFound === totalMatches ? <button className="grow ph2 mh3" onClick={this.handleSubmit}>Start New Game</button> : `Matches Found: ${matchesFound} / ${totalMatches}`}
                         </div>
-                        <div className="dib ph3">
+                        <div className="dib ph4 fr">
+                            <button className="grow" onClick={this.handleSubmit}>RESET</button>
+                        </div>
+                        <div className="dib ph3 fr">
+                            # Of Cards:
+                            <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.props.numOfCardsInput} />
+                        </div>
+                        <div className="dib ph3 fr">
                             Deck Set:
                             <select value={this.props.deckSet} onChange={this.handleSelect} className="grow pointer shadow-5" name="deck" id="deck-select">
                                 <option value="1">1</option>
@@ -65,16 +72,9 @@ class Labels extends React.Component {
                                 <option value="4">4</option>
                             </select>
                         </div>
-                        <div className="dib ph3">
-                            # Of Cards:
-                            <input step="2" onKeyPress={this.handleKeyPress} onChange={this.handleChange} className="shadow-5 grow" type="number" value={this.props.numOfCardsInput} />
-                        </div>
-                        <div className="dib ph4 fr">
-                            <button className="grow" onClick={this.handleSubmit}>RESET</button>
-                        </div>
                     </h2>
                 :
-                window.innerWidth > 600 ? //desktop version
+                this.props.width > 600 ? //desktop version
                     <h2>
                         <div className="container">
                             <div className={this.props.optionsMenu === null ? null : this.props.optionsMenu ? "slideOut" : "slideIn"}>
@@ -159,6 +159,7 @@ const mapStateToProps = state => {
         previousCard: state.handleActiveCardsReducer.previousCard,
         optionsMenu: state.optionsReducer.optionsMenu,
         numOfCardsInput: state.numOfCardsReducer.numOfCards,
+        width: state.windowWidthReducer.width
     }
 }
 export default connect(mapStateToProps, { setDeckSet, modalAlert, modalPrompt, closeModal, optionsOn, toggleOptions, setNumOfCards } )(Labels);

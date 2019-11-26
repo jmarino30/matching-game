@@ -166,6 +166,9 @@ h1 {
     background-color: #9eebcf;
     transform: rotateY(180deg);
 }
+.card__face--back img{
+    max-width: 80%;
+}
 .card-text {
     margin: 0 auto;
     font-size: 12px;
@@ -174,14 +177,6 @@ h1 {
 @media screen and (max-width: 600px) {
     h1 {
         font-size: 2em;
-    }
-    .scene {
-        width: 75px;
-        height: 75px;
-        margin: 5px;
-    }
-    .card-text {
-        font-size: 10px;
     }
     h2 {
         height: 40px;
@@ -197,9 +192,29 @@ h1 {
         border: 2px inset lightgray;
         height: 25px;
     }
-  }
-  @media screen and (min-width: 1020px) {
+}
+@media screen and (max-width: 500px) {
+    .scene {
+        width: 75px;
+        height: 75px;
+        margin: 5px;
+    }
+    .card-text {
+        font-size: 10px;
+    }
+}
+@media screen and (min-width: 501px) and (max-width: 775px) {
+    .scene {
+        width: 100px;
+        height: 100px;
+        margin: 5px;
+    }
+    .card-text {
+        font-size: 10px;
+    }
+}
+@media screen and (min-width: 1020px) {
       input, select {
           width: 65px;
       }
-  }
+}

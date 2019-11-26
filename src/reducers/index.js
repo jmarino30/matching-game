@@ -149,6 +149,14 @@ export const numOfCardsReducer = (state={numOfCards: 20}, action) => {
             return state;
     }
 }
+export const windowWidthReducer = (state={width: 0}, action) => {
+    switch (action.type) {
+        case 'WINDOW_WIDTH':
+            return {...state, width: action.payload};
+        default:
+            return state;
+    }
+}
 /*
 export const handleFlipReducer = (state={}, action={}) => {
     let cards = [];
