@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CardList from './CardList';
 import Labels from './Labels';
 import {connect} from 'react-redux';
@@ -6,35 +6,31 @@ import { requestRobots, createInitialIsMatchedState, createInitialIsFlippedState
 import './CardList.css';
 import Modal from './Modal';
 
-class App extends React.Component {
-    componentDidMount() {
-        this.props.getWindowWidth();
-        window.addEventListener('resize', this.props.getWindowWidth);
-    }
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.props.getWindowWidth);
-      }
+const App = props => {
+  useEffect( () => {
+    props.getWindowWidth();
+    window.addEventListener('resize', props.getWindowWidth);
+    return (window.removeEventListener('resize', props.getWindowWidth));
+  }, []);
 
-    startNewGame = (numOfCards) => {
-        this.props.requestRobots(numOfCards);
-        this.props.createInitialIsFlippedState(numOfCards);
-        this.props.createInitialIsMatchedState(numOfCards);
-    }
-    render() {
-        return (
-            <div className="tc">
-                <h1 className="tc">ROBOFRIENDS</h1>
-                { this.props.modal ? 
-                    <Modal 
-                    type={this.props.modal} 
-                    body={this.props.message} 
-                    startNewGame={this.startNewGame} /> 
-                : null }
-                <Labels startNewGame={this.startNewGame} />
-                <CardList startNewGame={this.startNewGame} />
-            </div>
-        );
-    }
+  const startNewGame = (numOfCards) => {
+    props.requestRobots(numOfCards);
+    props.createInitialIsFlippedState(numOfCards);
+    props.createInitialIsMatchedState(numOfCards);
+  }
+  return (
+    <div className="tc">
+      <h1>ROBOFRIENDS</h1>
+      { props.modal ? 
+          <Modal 
+          type={props.modal} 
+          body={props.message} 
+          startNewGame={startNewGame} /> 
+      : null }
+      <Labels startNewGame={startNewGame} />
+      <CardList startNewGame={startNewGame} />
+    </div>
+  );
 }
 const mapStateToProps = state => {
     return {

@@ -112,8 +112,8 @@ h1 {
         border: 3px solid rgba(24, 240, 150); }
   }
   @keyframes pulse {
-      from { border: 3px solid rgba(24, 240, 150); }
-      to { border: 3px solid rgb(24, 80, 236); }
+      from { border: 3px solid rgb(24, 80, 236); }
+      to { border: 3px solid rgba(24, 240, 150); }
   }
 .slideDown {
     animation: 1s ease-in-out 0s 1 slideDown forwards;

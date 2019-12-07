@@ -1,73 +1,70 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CardFront from './CardFront';
 import CardBack from './CardBack';
 import { connect } from 'react-redux';
 import { requestRobots, handleFlip, resetActiveCards, createInitialIsFlippedState, createInitialIsMatchedState, handleMatchFound, storePreviousCard, setPending } from '../actions';
 
-class CardList extends React.Component {
-    componentDidMount() {
-        this.props.startNewGame(20);
-    }
-    handleClick = (index, robotId) => {
-        //check if card is already matched or previous card
-        if (!this.props.isMatched[index] && !this.props.previousCard.pending) {
-            if (this.props.previousCard.id === null) {
-                this.props.handleFlip(index);
-                this.props.storePreviousCard(index, robotId);
-            } else { 
-                //make sure you can't click same card
-                if (this.props.previousCard.index !== index) {
-                    this.props.handleFlip(index);
-                    //if cards match
-                    if (this.props.previousCard.id === robotId) {
-                        this.props.handleMatchFound(this.props.previousCard.index, index);
-                        this.props.resetActiveCards(this.props.previousCard.index, index);
-                    } else {
-                        //if cards do not match
-                        this.props.setPending(true);
-                        setTimeout( () => {
-                            this.props.handleFlip(this.props.previousCard.index);
-                            this.props.handleFlip(index);
-                            this.props.resetActiveCards(this.props.previousCard.index, index);
-                            }, 
-                        2000);
-                    }
-                }
-            }
+const CardList = props => {
+  useEffect( () => {
+    props.startNewGame(20);
+  },[]);
+  const handleClick = (index, robotId) => {
+    //check if card is already matched or previous card
+    if (!props.isMatched[index] && !props.previousCard.pending) {
+      if (props.previousCard.id === null) {
+        props.handleFlip(index);
+        props.storePreviousCard(index, robotId);
+      } else { 
+        //make sure you can't click same card
+        if (props.previousCard.index !== index) {
+          props.handleFlip(index);
+          //if cards match
+          if (props.previousCard.id === robotId) {
+              props.handleMatchFound(props.previousCard.index, index);
+              props.resetActiveCards(props.previousCard.index, index);
+          } else {
+            //if cards do not match
+            props.setPending(true);
+            setTimeout( () => {
+              props.handleFlip(props.previousCard.index);
+              props.handleFlip(index);
+              props.resetActiveCards(props.previousCard.index, index);
+            }, 2000);
+          }
         }
+      }
     }
-    renderCards = () => {
-        let arrOfCards = this.props.robots.map((robot,index) => {
-            return (
-                <div className={this.props.isMatched[index] ? "scene scene--card grow border" : "scene scene--card grow"} key={index}>
-                    <div className={this.props.isFlipped[index] ? "card shadow-5 is-flipped" : "card shadow-5"}>
-                        <div className="card__face card__face--front">
-                            <CardFront onClick={() => this.handleClick(index, robot.email)} />
-                        </div>
-                        <div className="card__face card__face--back">
-                            <CardBack 
-                                robotName={robot.name.first} 
-                                id={robot.email}
-                                deckSet={this.props.deckSet}
-                                width={this.props.width}
-                                onClick={() => this.handleClick(index, robot.email)}
-                            />
-                        </div>
-                    </div>
-                </div>
-            );
-        });
-        return <div>{arrOfCards}</div>; 
-    }
-    render() {
-        return (
-            <div className="mw9 center ph3-ns">
-                <div className="cf ph2-ns">
-                    {this.renderCards()}
-                </div>
+  };
+  const renderCards = () => {
+    let arrOfCards = props.robots.map((robot,index) => {
+      return (
+        <div className={props.isMatched[index] ? "scene scene--card grow border" : "scene scene--card grow"} key={index}>
+          <div className={props.isFlipped[index] ? "card shadow-5 is-flipped" : "card shadow-5"}>
+            <div className="card__face card__face--front">
+              <CardFront onClick={() => handleClick(index, robot.email)} />
             </div>
-        );
-    }
+            <div className="card__face card__face--back">
+              <CardBack 
+                robotName={robot.name.first} 
+                id={robot.email}
+                deckSet={props.deckSet}
+                width={props.width}
+                onClick={() => handleClick(index, robot.email)}
+              />
+            </div>
+          </div>
+       </div>
+      );
+    });
+    return <div>{arrOfCards}</div>; 
+  };
+  return (
+    <div className="mw9 center ph3-ns">
+      <div className="cf ph2-ns">
+        {renderCards()}
+      </div>
+    </div>
+  );
 }
 const mapStateToProps = state => {
     return {
